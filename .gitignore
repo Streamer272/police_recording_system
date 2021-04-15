@@ -1,0 +1,6 @@
+/backend/.idea
+/backend/database.sql
+/backend/identifier.sqlite
+
+/frontend/node_modules
+/frontend/yarn.lock
