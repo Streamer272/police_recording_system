@@ -46,6 +46,12 @@ def mapping_add_record():
     limit = data.get("limit")
     money = data.get("money")
 
+    if not name or not limit or not money:
+        return make_response(
+            "Missing data",
+            400
+        )
+
     db = DatabaseController("database.sql")
     db.add_line("records", "name, limit, money", f"\"{name}\", \"{limit}\", \"{money}\"")
 
