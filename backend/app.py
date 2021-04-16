@@ -13,6 +13,8 @@ def init_database():
     creates basic database if not exists
     """
 
+    # TODO: finish this function
+
     pass
 
 

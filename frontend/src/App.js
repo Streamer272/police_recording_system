@@ -1,25 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import 'bootstrap/dist/css/bootstrap.css';
+import { prompt, alert } from "./components/prompt";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const App = () => {
+    let [notification, setNotification] = useState(<div />);
+
+    window.onload = function() {
+        prompt("What was your speed?", setNotification).then(value => {
+            console.log(value);
+        });
+    }
+
+    // TODO: make this a GAME not a boring alerts and prompts
+
+    return (
+        <div>
+            { notification }
+        </div>
+    );
 }
 
-export default App;
+export { App };
