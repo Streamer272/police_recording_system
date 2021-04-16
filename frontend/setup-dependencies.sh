@@ -11,7 +11,7 @@ if [ "$?" != "0" ]; then
             bash setup-dependencies.sh
 
         else
-            echo "Couldn't run application."
+            echo "Couldn't setup dependencies..."
             exit 1
         fi
     fi

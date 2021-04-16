@@ -11,8 +11,7 @@ if [ "$?" != "0" ]; then
             bash run.sh --norepeat
 
         else
-            echo "Couldn't run application."
-            exit 1
+            bash setup-dependencies.sh
         fi
     fi
 fi

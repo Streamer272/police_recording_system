@@ -46,7 +46,7 @@ const AlertWindow = ({ setNotification, message, doneCallback }) => {
     );
 }
 
-const prompt = async (message, setNotification) => {
+const prompt = async function (message, setNotification) {
     return new Promise((resolve, reject) => {
         function doneCallback(value) {
             if (value) {
@@ -60,7 +60,7 @@ const prompt = async (message, setNotification) => {
     });
 }
 
-const alert = (message, setNotification) => {
+const alert = async function (message, setNotification) {
     return new Promise((resolve, reject) => {
         function doneCallback(value) {
             if (value) {
