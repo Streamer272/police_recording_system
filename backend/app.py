@@ -47,14 +47,14 @@ def mapping_():
 @app.route("/get_bills", methods=["POST"])
 def mapping_get_bills_for_speed():
     """
-    mapping for getting money
+    mapping for getting bills
     """
 
     data = loads(request.get_data().decode())
     speed = data.get("speed") if data.get("speed") else 50
 
     db = DatabaseController("database.sql")
-    bills = db.get_line("bills", "speed>" + str(int(speed) - 50))[0][1]
+    bills = db.get_line("bills", "speed>=" + str(int(speed) - 50))[0][1]
 
     if int(speed) <= 50:
         return make_response(
@@ -70,7 +70,7 @@ def mapping_get_bills_for_speed():
             dumps({
                 "speed_over_limit": 0,
                 "bills": 0,
-                "remove DI": True
+                "removeDI": True
             }),
             200
         )
@@ -84,7 +84,6 @@ def mapping_get_bills_for_speed():
     )
 
 
-# noinspection PyTypeChecker
 @app.route("/add_record", methods=["POST"])
 def mapping_add_record():
     """

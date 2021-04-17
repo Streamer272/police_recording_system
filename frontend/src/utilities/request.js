@@ -5,7 +5,7 @@ async function postRequest(url, data) {
 
         xml.onreadystatechange = function() {
             if (xml.readyState === XMLHttpRequest.DONE && xml.responseText) {
-                resolve(xml.response);
+                resolve(JSON.parse(xml.response));
             }
         }
 

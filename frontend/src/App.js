@@ -1,6 +1,7 @@
 import { useState } from "react";
 import 'bootstrap/dist/css/bootstrap.css';
-import { prompt, alert } from "./utilities/prompt";
+import { init as prompt_init, prompt } from "./utilities/prompt";
+import { init as alert_init, alert } from "./utilities/alert";
 import { postRequest } from "./utilities/request";
 
 
@@ -9,45 +10,42 @@ const App = () => {
 
     async function getBillsForSpeed(speed) {
         // noinspection JSCheckFunctionSignatures
-        let money;
+        let bills;
+        // this si actually a GET request but my server doesnt work right so i have to do it this way
         await postRequest("http://localhost:5000/get_bills", JSON.stringify({"speed": speed})).then(value => {
-            money = value;
+            bills = value;
         });
 
-        console.log(money);
-
-        // if (isNaN(money)) {
-        //     await alert("Server must be running!", setNotification);
-        // }
-        // else {
-        //     await postRequest("http://localhost:5000/add_record", {
-        //         name: "unknown",
-        //         "speed": speed,
-        //         "money": money
-        //     });
-        // }
-
-        return money;
+        // noinspection JSUnresolvedVariable
+        return bills;
     }
 
     async function onload() {
         let speed;
 
-        await prompt("What was your speed?", setNotification).then(value => {
+        prompt_init(setNotification);
+        alert_init(setNotification);
+
+        await prompt("What was your speed?").then(value => {
             // noinspection JSCheckFunctionSignatures
             speed = parseInt(value);
         });
 
-
         if (isNaN(speed)) {
-            await alert("Please enter a number!", setNotification).then(() => {});
+            await alert("Please enter a number!").then(() => {});
             await onload();
+            return null;
         }
         else {
             const bills = await getBillsForSpeed(speed);
 
-            if (bills > 0) {
-                await alert("You would have to pay " + bills, setNotification);
+            // noinspection JSUnresolvedVariable
+            if (bills.removeDI) {
+                await alert("Your driving license would be removed!");
+            }
+            else {
+                // noinspection JSUnresolvedVariable
+                await alert("You would have to pay " + bills.bills);
             }
         }
     }

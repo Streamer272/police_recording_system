@@ -1,4 +1,4 @@
-import { PromptWindow } from "../components/PromptWindow";
+import { AlertWindow } from "../components/AlertWindow";
 
 
 let setNotification;
@@ -7,7 +7,7 @@ function init(setNotification_) {
     setNotification = setNotification_;
 }
 
-async function prompt(message) {
+async function alert(message) {
     return new Promise((resolve, reject) => {
         function doneCallback(value) {
             if (value) {
@@ -17,8 +17,9 @@ async function prompt(message) {
                 reject(value);
             }
         }
-        setNotification(<PromptWindow setNotification={ setNotification } message={ message } doneCallback={ doneCallback } />);
+
+        setNotification(<AlertWindow setNotification={ setNotification } message={ message } doneCallback={ doneCallback } />);
     });
 }
 
-export { init, prompt };
+export { init, alert };
