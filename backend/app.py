@@ -54,6 +54,7 @@ def mapping_get_bills_for_speed():
     speed = data.get("speed") if data.get("speed") else 50
 
     db = DatabaseController("database.sql")
+    # TODO: list index out of range error
     bills = db.get_line("bills", "speed>=" + str(int(speed) - 50))[0][1]
 
     if int(speed) <= 50:
