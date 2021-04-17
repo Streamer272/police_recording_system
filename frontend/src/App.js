@@ -20,6 +20,18 @@ const App = () => {
         return bills;
     }
 
+    async function add_record(name, speed, bills) {
+        const body = {
+            name: name,
+            speed: speed,
+            bills: bills
+        }
+
+        await postRequest("http://localhost:5000/add_record", JSON.stringify(body)).then(value => {
+            return value.state;
+        });
+    }
+
     async function onload() {
         let speed;
 
@@ -32,7 +44,7 @@ const App = () => {
         });
 
         if (isNaN(speed)) {
-            await alert("Please enter a number!").then(() => {});
+            await alert("Please enter a number!");
             await onload();
             return null;
         }
@@ -47,6 +59,8 @@ const App = () => {
                 // noinspection JSUnresolvedVariable
                 await alert("You would have to pay " + bills.bills);
             }
+
+            add_record("unknown", speed, bills);
         }
     }
 

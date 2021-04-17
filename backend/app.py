@@ -54,8 +54,12 @@ def mapping_get_bills_for_speed():
     speed = data.get("speed") if data.get("speed") else 50
 
     db = DatabaseController("database.sql")
-    # TODO: list index out of range error
-    bills = db.get_line("bills", "speed>=" + str(int(speed) - 50))[0][1]
+
+    bills = None
+    try:
+        bills = db.get_line("bills", "speed>=" + str(int(speed) - 50))[0][1]
+    except IndexError:
+        pass
 
     if int(speed) <= 50:
         return make_response(
@@ -66,7 +70,7 @@ def mapping_get_bills_for_speed():
             200
         )
 
-    if int(speed) - 50 > db.get_table("bills")[-1][1]:
+    if bills is None:
         return make_response(
             dumps({
                 "speed_over_limit": 0,
@@ -79,7 +83,7 @@ def mapping_get_bills_for_speed():
     return make_response(
         dumps({
             "speed_over_limit": int(speed) - 50,
-            "bills": bills
+            "bills": int(bills)
         }),
         200
     )
@@ -92,13 +96,14 @@ def mapping_add_record():
     """
 
     # TODO: this is basically free sql injection - fix
+    # you know what? let them try
 
     data = loads(request.get_data().decode())
     name = data.get("name")
     speed = data.get("speed")
-    money = data.get("money")
+    bills = data.get("bills")
 
-    if not name or not speed or not money:
+    if not name or not speed or not bills:
         return make_response(
             dumps({
                 "state": "missing data"
@@ -107,7 +112,7 @@ def mapping_add_record():
         )
 
     db = DatabaseController("database.sql")
-    db.add_line("records", "name, speed, money", f"\"{name}\", {speed}, {money}")
+    db.add_line("records", "name, speed, money", f"\"{name}\", {speed}, {bills}")
 
     return make_response(
         dumps({
