@@ -1,7 +1,7 @@
 import { useState } from "react";
 import 'bootstrap/dist/css/bootstrap.css';
-import { prompt, alert } from "./components/prompt";
-import { postRequest } from "./components/request";
+import { prompt, alert } from "./utilities/prompt";
+import { postRequest } from "./utilities/request";
 
 
 const App = () => {

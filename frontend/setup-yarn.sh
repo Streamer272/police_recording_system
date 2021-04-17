@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# if this doesnt work try: sudo [package manager (apt/pacman/...)] [install command (install/-S/...)] yarn
+
 read -r -p "Do you have npm installed? [y/n] " HAS_NPM
 
 if [ "$HAS_NPM" == "n" ]; then

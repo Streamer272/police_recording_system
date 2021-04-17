@@ -108,7 +108,6 @@ class DatabaseController:
         closes the database
         """
 
-        self.connection.commit()
         self.connection.close()
 
 
