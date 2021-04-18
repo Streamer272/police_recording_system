@@ -1,12 +1,14 @@
 import { useState } from "react";
 import 'bootstrap/dist/css/bootstrap.css';
+import { Game } from "./components/Game";
 import { init as prompt_init, prompt } from "./utilities/prompt";
 import { init as alert_init, alert } from "./utilities/alert";
 import { postRequest } from "./utilities/request";
 
 
 const App = () => {
-    let [notification, setNotification] = useState(<div />);
+    const [notification, setNotification] = useState(<div />);
+    const [game, setGame] = useState(Game());
 
     async function getBillsForSpeed(speed) {
         // noinspection JSCheckFunctionSignatures
@@ -62,14 +64,14 @@ const App = () => {
         }
     }
 
-    window.onload = onload;
+    // window.onload = onload;
 
     // TODO: make this a GAME not a boring alerts and prompts
 
     return (
         <div>
             { notification }
-            {  }
+            { game }
         </div>
     );
 }
