@@ -1,6 +1,5 @@
 import { AlertWindow } from "../components/AlertWindow";
 
-
 let setNotification;
 
 function init(setNotification_) {

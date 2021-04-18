@@ -1,14 +1,14 @@
 import { useState } from "react";
 import 'bootstrap/dist/css/bootstrap.css';
 import { Game } from "./components/Game";
-import { init as prompt_init, prompt } from "./utilities/prompt";
-import { init as alert_init, alert } from "./utilities/alert";
+import { init as promptInit, prompt } from "./utilities/prompt";
+import { init as alertInit, alert } from "./utilities/alert";
 import { postRequest } from "./utilities/request";
 
 
 const App = () => {
     const [notification, setNotification] = useState(<div />);
-    const [game, setGame] = useState(Game());
+    const [game] = useState(<Game setNotification={setNotification} getBillsForSpeed={ getBillsForSpeed } />);
 
     async function getBillsForSpeed(speed) {
         // noinspection JSCheckFunctionSignatures
@@ -35,8 +35,8 @@ const App = () => {
     async function onload() {
         let speed;
 
-        prompt_init(setNotification);
-        alert_init(setNotification);
+        promptInit(setNotification);
+        alertInit(setNotification);
 
         await prompt("What was your speed?").then(value => {
             // noinspection JSCheckFunctionSignatures
