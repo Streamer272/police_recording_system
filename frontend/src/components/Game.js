@@ -3,10 +3,11 @@ import 'bootstrap/dist/css/bootstrap.css';
 import Car from "../images/car.png";
 
 const Game = () => {
-    let speed = 0;
-    const [speedUnit] = useState(1);
-    const [pixelPerSpeedUnit, setPixelPerSpeedUnit] = useState(2);
-    const [fps] = useState(60);
+    const fps = 5;
+    const speedUnit = 1;
+
+    const [speed, setSpeed] = useState(0);
+    const [percentPerSpeedUnit, setPercentPerSpeedUnit] = useState(2);
     const [maxSpeed, setMaxSpeed] = useState(150);
     const [carMarginLeft, setCarMarginLeft] = useState(0);
     const [forwardKey, setForwardKey] = useState(" ");
@@ -23,19 +24,19 @@ const Game = () => {
     }
 
     function accelerate() {
-        speed = speed + speedUnit;
+        setSpeed(speed + speedUnit);
         console.log("accelerating to " + speed);
     }
 
     function slow() {
-        speed = speed - speedUnit;
+        setSpeed(speed - speedUnit);
         console.log("slowing to " + speed);
     }
 
     function carFrame() {
         const car = document.getElementById("car");
-        console.log("Speed: " + speed + ", car margin left: " + carMarginLeft + ", pixel per speed unit: " + pixelPerSpeedUnit);
-        const nextMargin = carMarginLeft + (speed * pixelPerSpeedUnit);
+        console.log("Speed: " + speed + ", car margin left: " + carMarginLeft + ", pixel per speed unit: " + percentPerSpeedUnit);
+        const nextMargin = carMarginLeft + (speed * percentPerSpeedUnit);
         setCarMarginLeft(nextMargin);
         car.style.marginLeft = nextMargin + "px";
     }
@@ -54,7 +55,7 @@ const Game = () => {
     }
 
     window.onload = function () {
-        setInterval(function () { carFrame() }, 1 / fps);
+        setInterval(carFrame, 1000 / fps);
     }
 
     return (
