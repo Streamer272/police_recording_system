@@ -21,13 +21,11 @@ const App = () => {
     }
 
     async function add_record(name, speed, bills) {
-        const body = {
+        await postRequest("http://localhost:5000/add_record", JSON.stringify({
             name: name,
             speed: speed,
             bills: bills
-        }
-
-        await postRequest("http://localhost:5000/add_record", JSON.stringify(body)).then(value => {
+        })).then(value => {
             return value.state;
         });
     }
@@ -71,6 +69,7 @@ const App = () => {
     return (
         <div>
             { notification }
+            {  }
         </div>
     );
 }

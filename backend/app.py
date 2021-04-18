@@ -20,15 +20,15 @@ def reset_database():
     remove("./database.sql")
 
     db = DatabaseController("database.sql")
-    db.create_table("bills", "speed INT, money INT")
-    db.create_table("records", "name TEXT, speed INT, money INT")
+    db.create_table("bills", "speed INT, bills INT")
+    db.create_table("records", "name TEXT, speed INT, bills INT")
 
     # basic bills (over speed limit : bills you have to pay)
     bills = [(6, 0), (10, 20), (15, 40), (19, 60), (25, 90), (30, 140), (35, 200), (40, 280), (45, 360), (50, 440),
              (55, 540), (60, 650)]
 
     for bill in bills:
-        db.add_line("bills", "speed, money", str(bill[0]) + ", " + str(bill[1]))
+        db.add_line("bills", "speed, bills", str(bill[0]) + ", " + str(bill[1]))
 
 
 @app.route("/")
@@ -101,7 +101,7 @@ def mapping_add_record():
     data = loads(request.get_data().decode())
     name = data.get("name")
     speed = data.get("speed")
-    bills = data.get("bills")
+    bills = data.get("bills").get("bills")
 
     if not name or not speed or not bills:
         return make_response(
@@ -112,7 +112,7 @@ def mapping_add_record():
         )
 
     db = DatabaseController("database.sql")
-    db.add_line("records", "name, speed, money", f"\"{name}\", {speed}, {bills}")
+    db.add_line("records", "name, speed, bills", "\"" + name + "\", " + str(speed) + ", " + str(bills))
 
     return make_response(
         dumps({
