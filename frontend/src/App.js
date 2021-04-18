@@ -14,7 +14,7 @@ const App = () => {
         // noinspection JSCheckFunctionSignatures
         let bills;
         // this si actually a GET request but my server doesnt work right so i have to do it this way
-        await postRequest("http://localhost:5000/get_bills", JSON.stringify({"speed": speed})).then(value => {
+        await postRequest("http://localhost:5000/get_bills", {"speed": speed}).then(value => {
             bills = value;
         });
 
@@ -23,11 +23,11 @@ const App = () => {
     }
 
     async function add_record(name, speed, bills) {
-        await postRequest("http://localhost:5000/add_record", JSON.stringify({
+        await postRequest("http://localhost:5000/add_record", {
             name: name,
             speed: speed,
             bills: bills
-        })).then(value => {
+        }).then(value => {
             return value.state;
         });
     }

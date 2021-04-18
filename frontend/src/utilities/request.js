@@ -13,7 +13,7 @@ async function postRequest(url, data) {
             reject(null);
         }
 
-        xml.send(data);
+        xml.send(JSON.stringify(data));
     });
 }
 
