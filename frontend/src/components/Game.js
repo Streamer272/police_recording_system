@@ -54,7 +54,7 @@ const Game = () => {
     }
 
     window.onload = function () {
-        setInterval(carFrame, 1 / fps);
+        setInterval(function () { carFrame() }, 1 / fps);
     }
 
     return (
